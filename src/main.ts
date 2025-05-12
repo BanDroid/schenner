@@ -64,6 +64,7 @@ Alpine.data("inputs", () => ({
       );
     } catch (error) {
       console.error(error);
+      this.error = error as string;
       (
         document.getElementById("errorModal") as HTMLDialogElement | null
       )?.showModal();
