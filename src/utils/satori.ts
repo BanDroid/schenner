@@ -65,7 +65,7 @@ function scheduleBoxes(
         themes.dark.onPrimary
       }] px-12 py-4 flex flex-row rounded-full"
     >
-      <div style="gap: 1rem;" tw="flex-1 flex flex-col">
+      <div style="gap: 0.5rem;" tw="flex-1 flex flex-col">
         <span tw="text-4xl font-light">${schedule.nameOfDay}</span>
         <span tw="text-4xl font-medium">${
           schedule.eventDescription || "No schedule"
@@ -123,7 +123,7 @@ export async function generateEncodedSvg(
           tw="absolute top-0 left-0 w-1/2 h-full opacity-80"
         />
         <div
-          style="text-shadow: 0 0 5px black;"
+          style="text-shadow: 0 0 10px black;"
           tw="flex-2 flex items-end justify-center p-8 text-4xl font-semibold"
         >
           ${data.artist ? ["@", data.artist].join("") : ""}
