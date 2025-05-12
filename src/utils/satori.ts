@@ -63,7 +63,9 @@ function scheduleBoxes(
     }"
       tw="bg-[${themes.dark.primary}] text-[${
         themes.dark.onPrimary
-      }] px-12 py-4 flex flex-row rounded-full"
+      }] px-12 py-4 flex flex-row rounded-full border-4 border-[${
+        themes.dark.inversePrimary
+      }]"
     >
       <div style="gap: 0.5rem;" tw="flex-1 flex flex-col">
         <span tw="text-4xl font-light">${schedule.nameOfDay}</span>
@@ -120,7 +122,7 @@ export async function generateEncodedSvg(
           style="object-fit: cover; object-position: center;
             maskImage: linear-gradient(to right, black 70%, transparent);
             WebkitMaskImage: linear-gradient(to right, black 70%, transparent);"
-          tw="absolute top-0 left-0 w-1/2 h-full opacity-80"
+          tw="absolute top-0 left-0 w-1/2 h-full opacity-90"
         />
         <div
           style="text-shadow: 0 0 10px black;"
