@@ -102,11 +102,8 @@
         Generate
       </button>
 
-      <img id="img-preview" :src="'data:image/svg+xml;charset=utf-8;base64,'+output"
-        class="bg-base-300 w-full h-auto aspect-video rounded object-center object-cover"
-        :class="output ? 'block' : 'hidden'" />
-
-      <canvas id="canvas-output" width="1920" height="1080" class="w-full h-auto aspect-video hidden"></canvas>
+      <canvas id="canvas-output" width="1920" height="1080" class="w-full h-auto aspect-video rounded"
+        :class="output ? 'block' : 'hidden'"></canvas>
 
       <img id="img-output" :src="'data:image/svg+xml;charset=utf-8;base64,'+output"
         class="bg-base-300 w-[1920px] max-w-none h-[1080px] object-center object-cover overflow-hidden opacity-0 fixed top-[100%] -left-[50%]" />
