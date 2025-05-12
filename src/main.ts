@@ -2,6 +2,7 @@ import "@gabrielfins/ripple-effect";
 import "@/style.css";
 
 import Alpine from "alpinejs";
+import { saveAs } from "file-saver";
 import { Schedule } from "@/types/schedule";
 import { generateEncodedSvg } from "@/utils/satori";
 import { generateThemes } from "@/utils/dynamic-colors";
@@ -75,11 +76,14 @@ Alpine.data("inputs", () => ({
       "canvas-output"
     ) as HTMLCanvasElement | null;
     if (!canvas) throw new Error("Canvas element is not initialized.");
-    const downloadUrl = canvas.toDataURL(`image/${format}`, 100);
-    const link = document.createElement("a");
-    link.download = `schenner.${format}`;
-    link.href = downloadUrl;
-    link.click();
+    canvas.toBlob(
+      function (blob) {
+        if (!blob) return;
+        saveAs(blob, `schenner.${format}`);
+      },
+      `image/${format}`,
+      100
+    );
   },
 }));
 
