@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Schenner</title>
+</head>
+
+<body x-data>
+  <div class="w-full max-w-4xl mx-auto space-y-6 overflow-hidden">
+    <nav class="navbar">
+      <div class="navbar-start">
+        Schenner
+      </div>
+      <div class="navbar-center">
+        <!-- <a href="https://github.com/BanDroid" class="btn btn-ghost btn-circle md-ripples">
+          <img src="https://cdn.simpleicons.org/github" alt="" class="size-6">
+        </a>
+        <a href="https://github.com/BanDroid" class="btn btn-ghost btn-circle md-ripples">
+          <img src="https://cdn.simpleicons.org/youtube" alt="" class="size-6">
+        </a> -->
+      </div>
+      <div class="navbar-end">
+        <a class="btn btn-primary md-ripples" href="https://www.paypal.com/paypalme/BanDroidID" target="_blank">
+          <img src="https://cdn.simpleicons.org/paypal/ffffff" alt="" class="size-4">
+          Support Me
+        </a>
+      </div>
+    </nav>
+
+    <main class="p-4 space-y-4 overflow-hidden" x-data="inputs">
+      <fieldset class="fieldset">
+        <legend class="fieldset-legend">Weekly schedule</legend>
+        <ul class="list bg-base-200/50 rounded">
+          <template x-for="(schedule, index) in schedules" :key="schedule.nameOfDay">
+            <li class="list-row">
+              <div class="list-col-grow">
+                <div x-text="schedule.nameOfDay"></div>
+                <div class="text-xs font-medium opacity-60" x-text="schedule.eventDescription || 'No schedule'"></div>
+              </div>
+              <button class="btn btn-primary btn-circle btn-sm md-ripples"
+                @click="document.getElementById('edit-'+(index + 1)+'-'+schedule.nameOfDay).showModal()">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                  stroke="currentColor" class="size-4">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                </svg>
+              </button>
+              <!-- edit modal -->
+              <dialog :id="$id('edit', schedule.nameOfDay)" class="modal">
+                <div class="modal-box">
+                  <h3 class="text-lg font-medium" x-text="schedule.nameOfDay"></h3>
+                  <div class="my-4">
+                    <fieldset class="fieldset flex flex-col">
+                      <input type="text" class="input w-full" x-model="schedule.eventDescription"
+                        @change="schedule.eventDescription = $el.value" />
+                      <p class="label block text-wrap">
+                        Set your weekly schedule, if you have 2 or more stream in 1 day, just describe it in description
+                        for that day.
+                      </p>
+                    </fieldset>
+                  </div>
+                  <div class="modal-action">
+                    <form method="dialog">
+                      <button class="btn btn-ghost md-ripples">Close</button>
+                    </form>
+                  </div>
+                </div>
+                <form method="dialog" class="modal-backdrop">
+                  <button></button>
+                </form>
+              </dialog>
+            </li>
+          </template>
+        </ul>
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <legend class="fieldset-legend">Pick your artwork <span>-</span> <i>required</i></legend>
+        <input type="file" class="file-input w-full" multiple="false" accept="image/png, image/jpg, image/jpeg"
+          @change="artwork = $el.files[0]" />
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <legend class="fieldset-legend">Artist</legend>
+        <label class="input w-full">
+          <span class="opacity-50">@</span>
+          <input type="text" class="" x-model="artist" />
+        </label>
+      </fieldset>
+
+      <button class="btn btn-primary btn-block md-ripples" :disabled="loading" @click="generate">
+        <span x-show="loading" class="loading loading-spinner"></span>
+        Generate
+      </button>
+
+      <img id="img-preview" :src="'data:image/svg+xml;charset=utf-8;base64,'+output"
+        class="bg-base-300 w-full h-auto aspect-video rounded object-center object-cover"
+        :class="output ? 'block' : 'hidden'" />
+
+      <canvas id="canvas-output" width="1920" height="1080" class="w-full h-auto aspect-video hidden"></canvas>
+
+      <img id="img-output" :src="'data:image/svg+xml;charset=utf-8;base64,'+output"
+        class="bg-base-300 w-[1920px] max-w-none h-[1080px] object-center object-cover overflow-hidden opacity-0 fixed top-[100%] -left-[50%]" />
+
+      <div class="flex-row items-center justify-center gap-4 [&>button]:flex-1" :class="output ? 'flex' : 'hidden'">
+        <button class="btn btn-primary md-ripples" @click="download('png')">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
+            <path fill-rule="evenodd"
+              d="M1.5 6a2.25 2.25 0 0 1 2.25-2.25h16.5A2.25 2.25 0 0 1 22.5 6v12a2.25 2.25 0 0 1-2.25 2.25H3.75A2.25 2.25 0 0 1 1.5 18V6ZM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0 0 21 18v-1.94l-2.69-2.689a1.5 1.5 0 0 0-2.12 0l-.88.879.97.97a.75.75 0 1 1-1.06 1.06l-5.16-5.159a1.5 1.5 0 0 0-2.12 0L3 16.061Zm10.125-7.81a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Z"
+              clip-rule="evenodd" />
+          </svg>
+          PNG
+        </button>
+        <button class="btn btn-primary md-ripples" @click="download('jpg')">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
+            <path fill-rule="evenodd"
+              d="M1.5 6a2.25 2.25 0 0 1 2.25-2.25h16.5A2.25 2.25 0 0 1 22.5 6v12a2.25 2.25 0 0 1-2.25 2.25H3.75A2.25 2.25 0 0 1 1.5 18V6ZM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0 0 21 18v-1.94l-2.69-2.689a1.5 1.5 0 0 0-2.12 0l-.88.879.97.97a.75.75 0 1 1-1.06 1.06l-5.16-5.159a1.5 1.5 0 0 0-2.12 0L3 16.061Zm10.125-7.81a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Z"
+              clip-rule="evenodd" />
+          </svg>
+          JPG
+        </button>
+      </div>
+
+      <!-- error modal -->
+      <dialog id="errorModal" class="modal">
+        <div class="modal-box">
+          <h3 class="text-lg font-medium">Something went wrong</h3>
+          <div class="alert alert-error alert-soft my-4" x-text="error"></div>
+          <form method="dialog">
+            <button class="btn btn-sm btn-circle btn-ghost absolute right-4 top-4">✕</button>
+          </form>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+          <button></button>
+        </form>
+      </dialog>
+    </main>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>
