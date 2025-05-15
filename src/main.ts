@@ -1,3 +1,6 @@
+import { inject } from "@vercel/analytics";
+inject();
+
 import "@gabrielfins/ripple-effect";
 import "@/style.css";
 
