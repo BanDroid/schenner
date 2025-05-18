@@ -25,6 +25,7 @@
     "file-saver": "^2.0.5",
     "material-dynamic-colors": "^1.1.2",
     "satori": "^0.12.2",
-    "satori-html": "^0.3.2"
+    "satori-html": "^0.3.2",
+    "twemoji": "^14.0.2"
   }
 }

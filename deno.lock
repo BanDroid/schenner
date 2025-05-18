@@ -14,6 +14,7 @@
     "npm:satori-html@~0.3.2": "0.3.2",
     "npm:satori@~0.12.2": "0.12.2",
     "npm:tailwindcss@^4.1.5": "4.1.5",
+    "npm:twemoji@^14.0.2": "14.0.2",
     "npm:typescript@~5.7.2": "5.7.3",
     "npm:vite@^6.3.1": "6.3.5_@types+node@22.15.14_picomatch@4.0.2"
   },
@@ -520,6 +521,14 @@
     "file-saver@2.0.5": {
       "integrity": "sha512-P9bmyZ3h/PRG+Nzga+rbdI4OEpNDzAVyy74uVO9ATgzLK6VtAsYybF/+TOCvrc0MO793d6+42lLyZTw7/ArVzA=="
     },
+    "fs-extra@8.1.0": {
+      "integrity": "sha512-yhlQgA6mnOJUKOsRUFsgJdQCvkKhcz8tlZG5HBQfReYZy46OwLcY+Zia0mtdHsOo9y/hP+CxMN0TU9QxoOtG4g==",
+      "dependencies": [
+        "graceful-fs",
+        "jsonfile@4.0.0",
+        "universalify"
+      ]
+    },
     "fsevents@2.3.3": {
       "integrity": "sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==",
       "os": ["darwin"],
@@ -534,6 +543,21 @@
     "jiti@2.4.2": {
       "integrity": "sha512-rg9zJN+G4n2nfJl5MW3BMygZX56zKPNVEYYqq7adpmMh4Jn2QNEwhvQlFy6jPVdcod7txZtKHWnyZiA3a0zP7A==",
       "bin": true
+    },
+    "jsonfile@4.0.0": {
+      "integrity": "sha512-m6F1R3z8jjlf2imQHS2Qez5sjKWQzbuuhuJ/FKYFRZvPE3PuHcSMVZzfsLhGVOkfd20obL5SWEBew5ShlquNxg==",
+      "optionalDependencies": [
+        "graceful-fs"
+      ]
+    },
+    "jsonfile@5.0.0": {
+      "integrity": "sha512-NQRZ5CRo74MhMMC3/3r5g2k4fjodJ/wh8MxjFbCViWKFjxrnudWSY5vomh+23ZaXzAS7J3fBZIR2dV6WbmfM0w==",
+      "dependencies": [
+        "universalify"
+      ],
+      "optionalDependencies": [
+        "graceful-fs"
+      ]
     },
     "lightningcss-darwin-arm64@1.29.2": {
       "integrity": "sha512-cK/eMabSViKn/PG8U/a7aCorpeKLMlK0bQeNHmdb7qUnBkNPnL+oV5DjJUo0kqWsJUapZsM4jCfYItbqBDvlcA==",
@@ -725,6 +749,18 @@
     "tslib@2.8.1": {
       "integrity": "sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w=="
     },
+    "twemoji-parser@14.0.0": {
+      "integrity": "sha512-9DUOTGLOWs0pFWnh1p6NF+C3CkQ96PWmEFwhOVmT3WbecRC+68AIqpsnJXygfkFcp4aXbOp8Dwbhh/HQgvoRxA=="
+    },
+    "twemoji@14.0.2": {
+      "integrity": "sha512-BzOoXIe1QVdmsUmZ54xbEH+8AgtOKUiG53zO5vVP2iUu6h5u9lN15NcuS6te4OY96qx0H7JK9vjjl9WQbkTRuA==",
+      "dependencies": [
+        "fs-extra",
+        "jsonfile@5.0.0",
+        "twemoji-parser",
+        "universalify"
+      ]
+    },
     "typescript@5.7.3": {
       "integrity": "sha512-84MVSjMEHP+FQRPy3pX9sTVV/INIex71s9TL2Gm5FG/WG1SqXeKyZ0k7/blY/4FdOzI12CBy1vGc4og/eus0fw==",
       "bin": true
@@ -741,6 +777,9 @@
         "pako",
         "tiny-inflate"
       ]
+    },
+    "universalify@0.1.2": {
+      "integrity": "sha512-rBJeI5CXAlmy1pV+617WB9J63U6XcazHHF2f2dbJix4XzpUF0RS3Zbj0FGIOCAva5P/d/GBOYaACQ1w+0azUkg=="
     },
     "vite@6.3.5_@types+node@22.15.14_picomatch@4.0.2": {
       "integrity": "sha512-cZn6NDFE7wdTpINgs++ZJ4N49W2vRp8LCKrn3Ob1kYNtOo21vfDoaV5GzBfLU4MovSAB8uNRm4jgzVQZ+mBzPQ==",
@@ -781,6 +820,7 @@
         "npm:satori-html@~0.3.2",
         "npm:satori@~0.12.2",
         "npm:tailwindcss@^4.1.5",
+        "npm:twemoji@^14.0.2",
         "npm:typescript@~5.7.2",
         "npm:vite@^6.3.1"
       ]

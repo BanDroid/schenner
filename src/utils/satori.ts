@@ -1,5 +1,6 @@
 import satori, { type FontWeight, type FontStyle } from "satori";
 import { html } from "satori-html";
+import twemoji from "twemoji";
 
 import { type IMaterialDynamicColorsTheme } from "material-dynamic-colors/src/cdn/interfaces";
 import { Schedule } from "@/types/schedule";
@@ -139,6 +140,38 @@ export async function generateEncodedSvg(
       width: 1920,
       height: 1080,
       fonts,
+      async loadAdditionalAsset(languageCode, segment) {
+        if (languageCode === "emoji") {
+          const code = twemoji.convert.toCodePoint(segment);
+          try {
+            const res = await fetch(
+              `https://openmoji.org/data/color/svg/${code.toUpperCase()}.svg`
+            );
+            if (res.ok) {
+              const emojiSvg = await res.text();
+              return `data:image/svg+xml;base64,${btoa(emojiSvg)}`;
+            }
+          } catch (e) {
+            try {
+              const res = await fetch(
+                `https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/${code}.svg`
+              );
+              if (res.ok) {
+                const emojiSvg = await res.text();
+                return `data:image/svg+xml;base64,${btoa(emojiSvg)}`;
+              }
+            } catch (e) {
+              return (
+                "data:image/svg+xml;base64," +
+                btoa(
+                  "<svg xmlns='http://www.w3.org/2000/svg' width='0' height='0'></svg>"
+                )
+              );
+            }
+          }
+        }
+        return languageCode;
+      },
     }
   );
   return btoa(svg);
